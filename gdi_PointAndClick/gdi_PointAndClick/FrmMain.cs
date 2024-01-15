@@ -57,6 +57,17 @@ namespace gdi_PointAndClick
                 Refresh();
             }
 
+            if (e.Button == MouseButtons.Right) // Rechtsklick
+            {
+                for (int i = 0; i < rectangles.Count; i++)
+                {
+                    if (rectangles[i].Contains(e.Location.X, e.Location.Y))
+                    {
+                        rectangles.Remove(rectangles[i]);
+                    }
+                }
+                Refresh();
+            }
         }
 
         private void FrmMain_KeyDown(object sender, KeyEventArgs e)
