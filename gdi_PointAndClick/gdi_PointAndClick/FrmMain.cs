@@ -1,3 +1,5 @@
+using System;
+
 namespace gdi_PointAndClick
 {
     public partial class FrmMain : Form
@@ -18,37 +20,42 @@ namespace gdi_PointAndClick
             int h = this.ClientSize.Height;
 
             // Zeichenmittel
+            Random random = new Random();
             Brush b = new SolidBrush(Color.Black);
-
-
             for (int i = 0; i < rectangles.Count; i++)
             {
+                b = new SolidBrush(Color.FromArgb(random.Next(256), random.Next(256), random.Next(256)));
                 g.FillRectangle(b, rectangles[i]);
             }
-
         }
 
         private void FrmMain_MouseClick(object sender, MouseEventArgs e)
         {
+
+
+
             Point mausposition = e.Location;
             Random random = new Random();
-            Rectangle r = new Rectangle(mausposition.X -20 , mausposition.Y -20, random.Next(30,40), random.Next(30, 40));
+            Rectangle r = new Rectangle(mausposition.X - 20, mausposition.Y - 20, random.Next(30, 40), random.Next(30, 40));
             bool contains = false;
 
-            for (int i = 0; i < rectangles.Count; i++)
+            if (e.Button == MouseButtons.Left) 
             {
-                if (rectangles[i].Contains(e.Location.X,e.Location.Y))
+                for (int i = 0; i < rectangles.Count; i++)
                 {
-                    contains = true;
+                    if (rectangles[i].Contains(e.Location.X, e.Location.Y))
+                    {
+                        contains = true;
+                    }
                 }
-            }
-            if (!contains)
-            {
-                rectangles.Add(r);
-                contains = false;
-            }
+                if (!contains)
+                {
+                    rectangles.Add(r);
+                    contains = false;
+                }
 
-            Refresh();
+                Refresh();
+            }
 
         }
 
@@ -59,6 +66,11 @@ namespace gdi_PointAndClick
                 rectangles.Clear();
                 Refresh();
             }
+        }
+
+        private void FrmMain_MouseDown(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }
