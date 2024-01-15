@@ -31,8 +31,8 @@ namespace gdi_PointAndClick
         private void FrmMain_MouseClick(object sender, MouseEventArgs e)
         {
             Point mausposition = e.Location;
-
-            Rectangle r = new Rectangle(mausposition.X -20 , mausposition.Y -20, 40, 40 );
+            Random random = new Random();
+            Rectangle r = new Rectangle(mausposition.X -20 , mausposition.Y -20, random.Next(30,40), random.Next(30, 40));
             bool contains = false;
 
             for (int i = 0; i < rectangles.Count; i++)
@@ -48,9 +48,7 @@ namespace gdi_PointAndClick
                 contains = false;
             }
 
-
             Refresh();
-
 
         }
 
