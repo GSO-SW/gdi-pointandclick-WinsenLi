@@ -1,5 +1,3 @@
-using System.Collections.Generic; // benötigt für Listen
-
 namespace gdi_PointAndClick
 {
     public partial class FrmMain : Form
@@ -20,7 +18,7 @@ namespace gdi_PointAndClick
             int h = this.ClientSize.Height;
 
             // Zeichenmittel
-            Brush b = new SolidBrush(Color.Lavender);
+            Brush b = new SolidBrush(Color.Black);
 
 
             for (int i = 0; i < rectangles.Count; i++)
@@ -34,11 +32,26 @@ namespace gdi_PointAndClick
         {
             Point mausposition = e.Location;
 
-            Rectangle r = new Rectangle(mausposition.X - 15 , mausposition.Y + 30, 40, 40);
+            Rectangle r = new Rectangle(mausposition.X -20 , mausposition.Y -20, 40, 40 );
+            bool contains = false;
 
-            rectangles.Add(r);  // Kurze Variante: rectangles.Add( new Rectangle(...)  );
+            for (int i = 0; i < rectangles.Count; i++)
+            {
+                if (rectangles[i].Contains(e.Location.X,e.Location.Y))
+                {
+                    contains = true;
+                }
+            }
+            if (!contains)
+            {
+                rectangles.Add(r);
+                contains = false;
+            }
+
 
             Refresh();
+
+
         }
 
         private void FrmMain_KeyDown(object sender, KeyEventArgs e)
